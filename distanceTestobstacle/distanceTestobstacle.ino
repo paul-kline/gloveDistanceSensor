@@ -135,7 +135,9 @@ void handleOutOfRange(){
   delay(150);
 }
 
-
+void filter (float* input, float* output, int size){
+  
+}
 unsigned long measureDistance(){
 //  unsigned long begin = micros();
   unsigned long t1;
@@ -152,10 +154,7 @@ unsigned long measureDistance(){
   t1 = micros();
   while ( digitalRead(ECHO_PIN) == 1);
   t2 = micros();
-//  Serial.print("measuredistancetime mircos: ");
-//  Serial.println(micros() - begin);
   return t2 - t1;
-
   }
 float last_cmmax = 0;
 unsigned long last_cmmaxtime =0;
@@ -215,6 +214,9 @@ void loop() {
     // are found in the datasheet, and calculated from the assumed speed 
     //of sound in air at sea level (~340 m/s).
     cm = pulse_width / 58.0;
+    if(cm > 800){
+      continue;
+    }
     measurements[index++] = cm;
     delay(10);
   
